@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: 255 107 107;
+    --color-primary-light: 255 181 181;
+    --color-primary-dark: 255 66 66;
+    --color-secondary: 78 205 196;
+    --color-secondary-light: 124 219 212;
+    --color-secondary-dark: 58 163 155;
+    --color-background: #F8F9FA;
+    --color-sidebar: #FFF1F1;
+    --color-text: #2D3748;
+    --color-text-light: #718096;
+    --color-border: #E2E8F0;
+  }
+}
+
+@layer components {
+  .sidebar-link {
+    @apply flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-white/50 rounded-lg transition-colors;
+  }
+
+  .sidebar-link.active {
+    @apply bg-secondary text-white hover:bg-secondary-dark;
+  }
+
+  .card {
+    @apply bg-white rounded-lg border border-border p-4 shadow-sm;
+  }
+
+  .welcome-card {
+    @apply border border-primary/20 rounded-lg p-6 bg-white/80;
+  }
+}
