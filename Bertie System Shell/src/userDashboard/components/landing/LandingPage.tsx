@@ -1,7 +1,33 @@
 import React from 'react';
 import { ArrowRight, Brain, Sparkles, Users, MessageSquare, Github, Twitter, Linkedin } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../../contexts/AuthContext';
 
 const LandingPage = () => {
+  const { signUp } = useAuth();
+  const [formData, setFormData] = React.useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+  const [error, setError] = React.useState<string | null>(null);
+  const [loading, setLoading] = React.useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
+
+    try {
+      await signUp(formData.email, formData.password);
+      // Redirect will be handled by the router
+    } catch (err) {
+      setError('Failed to create account. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
@@ -21,10 +47,10 @@ const LandingPage = () => {
               <a href="#" className="text-gray-600 hover:text-gray-900">Home</a>
               <a href="#" className="text-gray-600 hover:text-gray-900">Features</a>
               <a href="#" className="text-gray-600 hover:text-gray-900">Pricing</a>
-              <a href="#" className="text-gray-600 hover:text-gray-900">Login</a>
-              <button className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors">
+              <Link to="/sign-in" className="text-gray-600 hover:text-gray-900">Login</Link>
+              <Link to="/sign-up" className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors">
                 Get Started
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -42,10 +68,10 @@ const LandingPage = () => {
                 Access expert knowledge and guidance across multiple domains. Transform your workflow with intelligent AI assistance.
               </p>
               <div className="flex items-center gap-4">
-                <button className="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors flex items-center gap-2">
+                <Link to="/sign-up" className="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors flex items-center gap-2">
                   Start Free Trial
                   <ArrowRight size={20} />
-                </button>
+                </Link>
                 <button className="px-6 py-3 text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
                   Learn More
                 </button>
@@ -142,7 +168,7 @@ const LandingPage = () => {
             </div>
 
             <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={handleSubmit}>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Full Name
@@ -151,6 +177,8 @@ const LandingPage = () => {
                     type="text"
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20"
                     placeholder="Enter your name"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   />
                 </div>
 
@@ -162,6 +190,9 @@ const LandingPage = () => {
                     type="email"
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20"
                     placeholder="Enter your email"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    required
                   />
                 </div>
 
@@ -173,12 +204,32 @@ const LandingPage = () => {
                     type="password"
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20"
                     placeholder="Choose a password"
+                    value={formData.password}
+                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                    required
                   />
                 </div>
 
-                <button className="w-full py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors">
-                  Create Account
+                {error && (
+                  <div className="text-red-500 text-sm text-center">{error}</div>
+                )}
+
+                <button 
+                  type="submit"
+                  disabled={loading}
+                  className="w-full py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {loading ? 'Creating Account...' : 'Create Account'}
                 </button>
+
+                <div className="text-center mt-4">
+                  <p className="text-sm text-gray-600">
+                    Already have an account?{' '}
+                    <Link to="/sign-in" className="text-primary hover:text-primary-dark font-medium">
+                      Sign in here
+                    </Link>
+                  </p>
+                </div>
 
                 <div className="relative">
                   <div className="absolute inset-0 flex items-center">
@@ -189,7 +240,10 @@ const LandingPage = () => {
                   </div>
                 </div>
 
-                <button className="w-full py-3 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
+                <button 
+                  type="button"
+                  className="w-full py-3 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
+                >
                   <img
                     src="https://www.google.com/favicon.ico"
                     alt="Google"

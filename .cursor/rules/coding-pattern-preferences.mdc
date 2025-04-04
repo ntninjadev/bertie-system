@@ -1,0 +1,28 @@
+---
+description: "Enforces coding pattern standards for the Bertie System project including code organization, environment handling, and bug fixing practices"
+globs: ["**/*.{ts,tsx,js,jsx,css,scss,json}"]
+alwaysApply: true
+autoAttachments: ["**/*.{ts,tsx,js,jsx}"]
+ruleType: "pattern"
+---
+
+# Coding Pattern Preferences
+
+## Core Principles
+- Always prefer simple solutions over complex ones
+- Avoid code duplication by checking existing codebase for similar functionality
+- Write environment-aware code (dev, test, prod)
+- Make only requested or well-understood changes
+- Keep the codebase clean and organized
+
+## Code Organization
+- Avoid files exceeding 200-300 lines of code (refactor when approaching this limit)
+- Avoid writing scripts in files unless necessary
+- Never mock data for dev or prod environments (mocking only for tests)
+- Never add stubbing or fake data patterns affecting dev/prod environments
+- Never overwrite `.env` file without explicit confirmation
+
+## Bug Fixing & Changes
+- Exhaust existing implementation options before introducing new patterns/technologies
+- Remove old implementations when introducing new patterns
+- Focus on maintaining consistency with existing codebase 

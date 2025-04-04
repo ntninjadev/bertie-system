@@ -1,5 +1,11 @@
 import React from 'react';
 import { Search, Plus, Edit2, Trash2, Upload } from 'lucide-react';
+import TenantNavigation from './TenantNavigation';
+
+interface TenantCoachesProps {
+  currentTab: string;
+  onTabChange: (tab: string) => void;
+}
 
 const coaches = [
   {
@@ -40,40 +46,11 @@ const coaches = [
   },
 ];
 
-const TenantCoaches = () => {
+const TenantCoaches: React.FC<TenantCoachesProps> = ({ currentTab, onTabChange }) => {
   return (
     <div className="min-h-screen bg-slate-50">
-      {/* Page Header */}
-      <div className="bg-slate-800 h-16 flex items-center px-8">
-        <h1 className="text-xl font-semibold text-white">Tenant Management: Acme Inc</h1>
-      </div>
-
-      {/* Tab Navigation */}
-      <div className="bg-white border-b border-slate-200">
-        <div className="flex">
-          <button className="px-8 py-4 text-slate-600 hover:text-slate-900 transition-colors">
-            General
-          </button>
-          <button className="px-8 py-4 text-slate-600 hover:text-slate-900 transition-colors">
-            Branding
-          </button>
-          <button className="px-8 py-4 text-blue-600 border-b-2 border-blue-600 font-medium">
-            Coaches
-          </button>
-          <button className="px-8 py-4 text-slate-600 hover:text-slate-900 transition-colors">
-            Tools
-          </button>
-          <button className="px-8 py-4 text-slate-600 hover:text-slate-900 transition-colors">
-            Resources
-          </button>
-          <button className="px-8 py-4 text-slate-600 hover:text-slate-900 transition-colors">
-            Users
-          </button>
-        </div>
-      </div>
-
-      {/* Content Area */}
-      <div className="p-8">
+      <TenantNavigation currentTab={currentTab} onTabChange={onTabChange} />
+      <div className="p-6">
         <div className="max-w-6xl mx-auto bg-white rounded-lg border border-slate-200">
           {/* Header Section */}
           <div className="p-6 flex items-center justify-between">

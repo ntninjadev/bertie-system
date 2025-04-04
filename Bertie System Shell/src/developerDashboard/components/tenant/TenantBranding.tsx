@@ -1,7 +1,13 @@
 import React from 'react';
 import { Upload, Eye } from 'lucide-react';
+import TenantNavigation from './TenantNavigation';
 
-const TenantBranding = () => {
+interface TenantBrandingProps {
+  currentTab: string;
+  onTabChange: (tab: string) => void;
+}
+
+const TenantBranding: React.FC<TenantBrandingProps> = ({ currentTab, onTabChange }) => {
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Page Header */}
@@ -10,28 +16,7 @@ const TenantBranding = () => {
       </div>
 
       {/* Tab Navigation */}
-      <div className="bg-white border-b border-slate-200">
-        <div className="flex">
-          <button className="px-8 py-4 text-slate-600 hover:text-slate-900 transition-colors">
-            General
-          </button>
-          <button className="px-8 py-4 text-blue-600 border-b-2 border-blue-600 font-medium">
-            Branding
-          </button>
-          <button className="px-8 py-4 text-slate-600 hover:text-slate-900 transition-colors">
-            Coaches
-          </button>
-          <button className="px-8 py-4 text-slate-600 hover:text-slate-900 transition-colors">
-            Tools
-          </button>
-          <button className="px-8 py-4 text-slate-600 hover:text-slate-900 transition-colors">
-            Resources
-          </button>
-          <button className="px-8 py-4 text-slate-600 hover:text-slate-900 transition-colors">
-            Users
-          </button>
-        </div>
-      </div>
+      <TenantNavigation currentTab={currentTab} onTabChange={onTabChange} />
 
       {/* Form Content */}
       <div className="p-8">

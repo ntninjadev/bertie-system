@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Search, Plus, Edit2, Trash2, Upload, FileText, Video, BookOpen, File } from 'lucide-react';
 import CourseCreator from './CourseCreator';
+import TenantNavigation from './TenantNavigation';
 
 const resources = [
   {
@@ -41,7 +42,12 @@ const resources = [
   },
 ];
 
-const TenantResources = () => {
+interface TenantResourcesProps {
+  currentTab: string;
+  onTabChange: (tab: string) => void;
+}
+
+const TenantResources: React.FC<TenantResourcesProps> = ({ currentTab, onTabChange }) => {
   const [resourceType, setResourceType] = useState('standard');
   const [selectedTab, setSelectedTab] = useState('all');
 
@@ -49,32 +55,11 @@ const TenantResources = () => {
     <div className="min-h-screen bg-slate-50">
       {/* Page Header */}
       <div className="bg-slate-800 h-16 flex items-center px-8">
-        <h1 className="text-xl font-semibold text-white">Tenant Management: Acme Inc</h1>
+        <h1 className="text-xl font-semibold text-white">Tenant Resources: Acme Inc</h1>
       </div>
 
-      {/* Main Tab Navigation */}
-      <div className="bg-white border-b border-slate-200">
-        <div className="flex">
-          <button className="px-8 py-4 text-slate-600 hover:text-slate-900 transition-colors">
-            General
-          </button>
-          <button className="px-8 py-4 text-slate-600 hover:text-slate-900 transition-colors">
-            Branding
-          </button>
-          <button className="px-8 py-4 text-slate-600 hover:text-slate-900 transition-colors">
-            Coaches
-          </button>
-          <button className="px-8 py-4 text-slate-600 hover:text-slate-900 transition-colors">
-            Tools
-          </button>
-          <button className="px-8 py-4 text-blue-600 border-b-2 border-blue-600 font-medium">
-            Resources
-          </button>
-          <button className="px-8 py-4 text-slate-600 hover:text-slate-900 transition-colors">
-            Users
-          </button>
-        </div>
-      </div>
+      {/* Tab Navigation */}
+      <TenantNavigation currentTab={currentTab} onTabChange={onTabChange} />
 
       {/* Resource Type Tabs */}
       <div className="bg-white border-b border-slate-200">

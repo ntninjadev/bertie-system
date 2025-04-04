@@ -1,5 +1,11 @@
 import React from 'react';
 import { Search, Plus, Edit2, Trash2, Upload } from 'lucide-react';
+import TenantNavigation from './TenantNavigation';
+
+interface TenantToolsProps {
+  currentTab: string;
+  onTabChange: (tab: string) => void;
+}
 
 const workflows = [
   {
@@ -45,37 +51,16 @@ const colorOptions = [
   { color: 'bg-teal-500', selected: false },
 ];
 
-const TenantTools = () => {
+const TenantTools: React.FC<TenantToolsProps> = ({ currentTab, onTabChange }) => {
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Page Header */}
       <div className="bg-slate-800 h-16 flex items-center px-8">
-        <h1 className="text-xl font-semibold text-white">Tenant Management: Acme Inc</h1>
+        <h1 className="text-xl font-semibold text-white">Tenant Tools: Acme Inc</h1>
       </div>
 
       {/* Tab Navigation */}
-      <div className="bg-white border-b border-slate-200">
-        <div className="flex">
-          <button className="px-8 py-4 text-slate-600 hover:text-slate-900 transition-colors">
-            General
-          </button>
-          <button className="px-8 py-4 text-slate-600 hover:text-slate-900 transition-colors">
-            Branding
-          </button>
-          <button className="px-8 py-4 text-slate-600 hover:text-slate-900 transition-colors">
-            Coaches
-          </button>
-          <button className="px-8 py-4 text-blue-600 border-b-2 border-blue-600 font-medium">
-            Tools
-          </button>
-          <button className="px-8 py-4 text-slate-600 hover:text-slate-900 transition-colors">
-            Resources
-          </button>
-          <button className="px-8 py-4 text-slate-600 hover:text-slate-900 transition-colors">
-            Users
-          </button>
-        </div>
-      </div>
+      <TenantNavigation currentTab={currentTab} onTabChange={onTabChange} />
 
       {/* Content Area */}
       <div className="p-8">
